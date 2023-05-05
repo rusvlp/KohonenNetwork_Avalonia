@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System;
+using Avalonia.Controls;
 using Avalonia.Media;
 
 namespace KohonenNetwork.Util;
@@ -28,4 +29,10 @@ public static class Functions
         };
 
     }
+
+    public static double GetRandomNumber(double from, double to)
+    {
+        Random rnd = new Random();
+        return from + (rnd.NextDouble() * (to - from));
+    }   
 }
