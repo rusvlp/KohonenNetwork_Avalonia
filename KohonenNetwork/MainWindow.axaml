@@ -6,6 +6,11 @@
         x:Class="KohonenNetwork.MainWindow"
         Title="KohonenNetwork">
     <!--TextBlock> Koberbek Simple bla-bla-bla </TextBlock-->
+    
+    <Window.Styles>
+        <StyleInclude Source="/MainWindowStyles.axaml" />
+    </Window.Styles>
+    
     <Grid ShowGridLines="True" ColumnDefinitions="3*, *">
         <!--Definitions-->
         
@@ -14,20 +19,29 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <!--Title-->
-        <Grid ColumnDefinitions="1.5*, *, *">
-            <TextBlock Grid.Column = "1" Grid.Row = "0">KohonenNetwork</TextBlock>
+        
+        <TextBlock Grid.Row = "0" Grid.Column="1" Name = "DebugString">Debug String</TextBlock>
+        
+        <Grid ColumnDefinitions="1.5*, *, *" RowDefinitions="Auto">
+            <TextBlock Classes="AppName" Grid.Column = "1" Grid.Row = "0">KohonenNetwork</TextBlock>
         </Grid>
         
         <!-- Main grid -->
-        <Grid Grid.Row = "1" >
+        
+        <Grid Grid.Column = "0" Name = "KohonenMapPanel" Grid.Row = "1" ColumnDefinitions="*, *, *" RowDefinitions="*, *, *">
+            <!--Rectangle Classes = "TestRect" Grid.Row = "0" Grid.Column = "1"></Rectangle-->
+            
         </Grid>
         
             <!-- Buttons -->
         <Grid Grid.Column = "1" Grid.Row = "2" RowDefinitions="Auto, Auto, Auto">
-            <Button >Какая-то кнопка</Button>
-            <Button Grid.Row = "1" >Какая-то кнопка</Button>
-            <Button Grid.Row = "2" >Какая-то кнопка</Button>
-            
+            <Grid ColumnDefinitions="*, Auto, *">
+                <StackPanel Name = "GridPanel" Grid.Column = "1">
+                    <Button >Какая-то кнопка</Button>
+                    <Button Grid.Row = "1" >Какая-то кнопка</Button>
+                    <Button Grid.Row = "2" >Какая-то кнопка</Button>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
