@@ -20,7 +20,10 @@ public partial class MainWindow : Window
     public TextBox rFromBox;
     public TextBox rToBox;
     public TextBox mapSizeBox;
-    
+    public TextBox iterationsBox;
+    public TextBox teachSpeedBox;
+
+    public double[][] trainingSample;
     public MainWindow()
     {
         InitializeComponent();
@@ -29,11 +32,14 @@ public partial class MainWindow : Window
 
         this.DebugTB = this.FindControl<TextBlock>("DebugString");
         
-        TrainingSample.GenerateIBMSet(40);
+        
 
         this.rFromBox = this.FindControl<TextBox>("RFrom");
         this.rToBox = this.FindControl<TextBox>("RTo");
         this.mapSizeBox = this.FindControl<TextBox>("MapSize");
+        this.iterationsBox = this.FindControl<TextBox>("NOfIterations");
+        this.teachSpeedBox = this.FindControl<TextBox>("TeachSpeed");
+        
         //this.mapDisplay = InitializeMap(4, mainGrid);
         debug();
     }
@@ -133,12 +139,27 @@ public partial class MainWindow : Window
         double rFrom = double.Parse(rFromBox.Text);
         double rTo = double.Parse(rToBox.Text);
         int mapSize = int.Parse(this.mapSizeBox.Text);
+        TrainingSample.GenerateIBMSet(mapSize);
+        trainingSample = TrainingSample.IBMSet;
         this.SOM = InitializeSOMap(mapSize, 10, new []{1d, 2d, 3d}, mainGrid, rFrom, rTo);
     }
 
     public void GetWinners(object sender, RoutedEventArgs e)
     {
         this.SOM.Search(TrainingSample.IBMSet);
+    }
+    
+    public void TeachOneTimeHandler(object sender, RoutedEventArgs e)
+    {
+        double speed = double.Parse(teachSpeedBox.Text);
+        this.SOM.Learn(1, speed, this.trainingSample);
+    }
+
+    public void TeachSeveralTimes(object sender, RoutedEventArgs e)
+    {
+        double speed = double.Parse(teachSpeedBox.Text);
+        int iterations = int.Parse(iterationsBox.Text);
+        this.SOM.Learn(iterations, speed, this.trainingSample);
     }
     
     public void TeachOneTime(object sender, RoutedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NLog.Fluent;
 
 namespace KohonenNetwork.Network;
@@ -11,6 +12,9 @@ public class SelfOrganizationMap
     public double[] Inputs;
     public int BSize;
     public double sigma0;
+
+    private Neuron currentWinner;
+    
     public SelfOrganizationMap(int width, int height, double[] inputs, int bSize, double rFrom, double rTo)
     {
         this.Inputs = inputs;
@@ -91,11 +95,49 @@ public class SelfOrganizationMap
             n.Recolor();
         } 
     }
-
-    public void Learn(int iterations, double speed)
+    
+    
+    public void Learn(int iterations, double speed, double[][] trainingSample)
     {
+        List<Neuron> allNeurons = new List<Neuron>();
+        for (int i = 0; i < this.Neurons.Length; i++)
+        {
+            for (int j = 0; j < this.Neurons[i].Length; j++)
+            {
+                allNeurons.Add(this.Neurons[i][j]);
+            }
+        }
+
         double lambda = iterations / Math.Log(this.sigma0);
-        for (int i = 0; i < )
+        for (int i = 0; i < trainingSample.Length; i++)
+        {
+            this.currentWinner = GetWinner(trainingSample[i]);
+            for (int j = 0; j < iterations; j++)
+            {
+                double sigma = this.sigma0 * Math.Exp(-(j / lambda));
+                double l = speed * Math.Exp(-(j / lambda));
+
+                List<Neuron> neighbours = allNeurons.Where(neuron => Math.Sqrt(Math.Pow((neuron.x - currentWinner.x), 2) +
+                                                                               Math.Pow((neuron.y - currentWinner.y), 2)) < sigma).ToList();
+
+                foreach (Neuron neighbour in neighbours)
+                {
+                    double destination = Math.Sqrt(Math.Pow((neighbour.x - currentWinner.x), 2) +
+                                                   Math.Pow((neighbour.y - currentWinner.y), 2));
+                    double theta = Math.Exp(-((destination * destination) / (2 * (sigma * sigma))));
+                    
+                    // Корректировка весов
+
+                    for (int k = 0; k < neighbour.Weights.Length; k++)
+                    {
+                        neighbour.Weights[k] += theta * l * (trainingSample[i][k] - neighbour.Weights[k]);
+                    }
+                    
+                }
+
+            }
+            Recolor();
+        }
     }
     
     public void Recolor()

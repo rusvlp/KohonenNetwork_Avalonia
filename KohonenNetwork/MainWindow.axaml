@@ -40,11 +40,11 @@
                     <StackPanel Name = "LearningPanel" Classes = "LearningPanel">
                         <Label Classes = "PanelLabel">Обучение</Label>
                         <Label Grid.Row = "0">Количество итераций</Label>
-                        <TextBox Grid.Row = "1" Name = "NOfIterations"></TextBox>
+                        <TextBox Grid.Row = "1" Name = "NOfIterations">10</TextBox>
                         <Label Grid.Row = "2">Скорость обучения </Label>
-                        <TextBox Grid.Row = "3" Name = "TeachSpeed"></TextBox>
-                        <Button Click = "TeachOneTime" Classes = "ControlButton" Grid.Row = "4">Обучить один раз</Button>
-                        <Button Classes = "ControlButton" Grid.Row = "5">Обучить заданное количество раз</Button>
+                        <TextBox Grid.Row = "3" Name = "TeachSpeed">0,33</TextBox>
+                        <Button Click = "TeachOneTimeHandler" Classes = "ControlButton" Grid.Row = "4">Обучить один раз</Button>
+                        <Button Click = "TeachSeveralTimes" Classes = "ControlButton" Grid.Row = "5">Обучить заданное количество раз</Button>
                         <Button Click = "GetWinners" Classes = "ControlButton" Grid.Row = "6">Найти победителя</Button>
                         
                     </StackPanel>
@@ -57,9 +57,9 @@
                         <Grid Name = "RandomWeights" RowDefinitions="*, *" ColumnDefinitions="*, *, *">
                             
                             <Label >От: </Label>
-                            <TextBox Grid.Row = "1" Grid.Column = "0" Name = "RFrom">0,3</TextBox>
+                            <TextBox Grid.Row = "1" Grid.Column = "0" Name = "RFrom">0</TextBox>
                             <Label Grid.Row = "0" Grid.Column="2" >До: </Label>
-                            <TextBox Grid.Row="1" Grid.Column = "2" Name = "RTo">0,33</TextBox>
+                            <TextBox Grid.Row="1" Grid.Column = "2" Name = "RTo">1</TextBox>
                            
                             
                         </Grid>
