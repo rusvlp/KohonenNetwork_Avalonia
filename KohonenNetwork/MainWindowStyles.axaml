@@ -30,4 +30,14 @@
     <Style Selector = "Button.ControlButton">
         <Setter Property="Margin" Value = "0 5"/>
     </Style>
+    
+    <Style Selector = "Label.PanelLabel">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value = "16"/>
+    </Style>
+    
+    <Style Selector="StackPanel.NetworkSettingsPanel">
+        <Setter Property="Margin" Value=" 0 15 0 0"/>
+    </Style>
 </Styles>

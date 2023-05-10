@@ -37,13 +37,36 @@
         <Grid Grid.Column = "1" Grid.Row = "2" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
             <Grid ColumnDefinitions="*, Auto, *">
                 <StackPanel Name = "GridPanel" Grid.Column = "1">
-                    <Label Grid.Row = "0">Количество итераций</Label>
-                    <TextBox Grid.Row = "1" Name = "NOfIterations"></TextBox>
-                    <Label Grid.Row = "2">Скорость обучения </Label>
-                    <TextBox Grid.Row = "3" Name = "TeachSpeed"></TextBox>
-                    <Button Click = "TeachOneTime" Classes = "ControlButton" Grid.Row = "4">Обучить один раз</Button>
-                    <Button Classes = "ControlButton" Grid.Row = "5">Обучить заданное количество раз</Button>
-                    <Button Classes = "ControlButton" Grid.Row = "6">Найти победителя</Button>
+                    <StackPanel Name = "LearningPanel" Classes = "LearningPanel">
+                        <Label Classes = "PanelLabel">Обучение</Label>
+                        <Label Grid.Row = "0">Количество итераций</Label>
+                        <TextBox Grid.Row = "1" Name = "NOfIterations"></TextBox>
+                        <Label Grid.Row = "2">Скорость обучения </Label>
+                        <TextBox Grid.Row = "3" Name = "TeachSpeed"></TextBox>
+                        <Button Click = "TeachOneTime" Classes = "ControlButton" Grid.Row = "4">Обучить один раз</Button>
+                        <Button Classes = "ControlButton" Grid.Row = "5">Обучить заданное количество раз</Button>
+                        <Button Click = "GetWinners" Classes = "ControlButton" Grid.Row = "6">Найти победителя</Button>
+                        
+                    </StackPanel>
+                    <StackPanel Name = "NetworkSettingsPanel" Classes = "NetworkSettingsPanel">
+                        <Label Classes = "PanelLabel">Настройки сети</Label>
+                        <Label>Случайное значение весов</Label>
+                        <!--StackPanel Name = "SizeDimensions" Orientation="Horizontal">
+                            
+                        </StackPanel-->
+                        <Grid Name = "RandomWeights" RowDefinitions="*, *" ColumnDefinitions="*, *, *">
+                            
+                            <Label >От: </Label>
+                            <TextBox Grid.Row = "1" Grid.Column = "0" Name = "RFrom">0,3</TextBox>
+                            <Label Grid.Row = "0" Grid.Column="2" >До: </Label>
+                            <TextBox Grid.Row="1" Grid.Column = "2" Name = "RTo">0,33</TextBox>
+                           
+                            
+                        </Grid>
+                        <Label Classes = "">Размер карты</Label>
+                        <TextBox Name = "MapSize">40</TextBox>
+                        <Button Click = "InitializeSOMapClickHandler" Classes = "ControlButton" Grid.Row = "6">Инициализировать карту</Button>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </Grid>
