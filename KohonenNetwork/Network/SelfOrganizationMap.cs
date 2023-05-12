@@ -89,6 +89,7 @@ public class SelfOrganizationMap
     public void Search(double[][] inputs)
     {
         ClearColor();
+        Normalize();
         foreach (double[] inputUnit in inputs)
         {
             Neuron n = GetWinner(inputUnit);
@@ -136,8 +137,51 @@ public class SelfOrganizationMap
                 }
 
             }
+            Normalize();
             Recolor();
         }
+    }
+
+
+    public void Normalize()
+    {
+        // Ищем максимальный вес
+        double maxWeight = Neurons[0][0].Weights[0];
+        for (int i = 0; i < Neurons.Length; i++)
+        {
+            for (int j = 0; j < Neurons[i].Length; j++)
+            {
+                for (int k = 0; k < Neurons[i][j].Weights.Length; k++)
+                {
+                    if (Neurons[i][j].Weights[k] > maxWeight)
+                    {
+                        maxWeight = Neurons[i][j].Weights[k];
+                    }
+                }
+            }
+        }
+
+        maxWeight = maxWeight;
+        // Корректируем веса на основе максимального веса
+        double tmpWeight = 0;
+        double nWeight = 0;
+        for (int i = 0; i < Neurons.Length; i++)
+        {
+            for (int j = 0; j < Neurons[i].Length; j++)
+            {
+                for (int k = 0; k < Neurons[i][j].Weights.Length; k++)
+                {
+                    if (maxWeight < Neurons[i][j].Weights.Length)
+                    {
+                        tmpWeight = Neurons[i][j].Weights[k] / maxWeight;
+                        nWeight = Neurons[i][j].Weights[k];
+                        Neurons[i][j].Weights[k] = nWeight / tmpWeight;
+                    }
+                }
+            }
+        }
+        
+        
     }
     
     public void Recolor()
